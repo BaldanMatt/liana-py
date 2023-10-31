@@ -5,7 +5,7 @@ from pandas import DataFrame
 
 from liana._logging import _logg
 
-def select_resource_tf_tg() -> DataFrame:
+def select_resource_tf_tg(file: str = "TF_TG_db.csv") -> DataFrame:
     """
     Read resource of choice from the pre-generated resources in scseqcomm for LIANA.
     TF_TG_DB.csv -> The resources contains the associations between transcription factors and target genes:
@@ -19,12 +19,12 @@ def select_resource_tf_tg() -> DataFrame:
     A dataframe with ``['transcription_factor', 'target_gene']`` columns
 
     """
-    resource_path = pathlib.Path(__file__).parent.joinpath("TF_TG_db.csv")
+    resource_path = pathlib.Path(__file__).parent.joinpath(file)
     resource = read_csv(resource_path, index_col=False)
     
     return resource
 
-def select_resource_ppr_r_tf(resource_name: str = 'consensus') -> DataFrame:
+def select_resource_ppr_r_tf(file: str = "Personalized_PageRank_scores.csv", resource_name: str = 'consensus') -> DataFrame:
     """
     Read resource of choice from the pre-generated resources in scseqcomm for LIANA.
     Personalized_PAgeRank_score.csv -> The resources contains the PPR scores associated with the couple receptor-TF.
@@ -38,8 +38,7 @@ def select_resource_ppr_r_tf(resource_name: str = 'consensus') -> DataFrame:
     A dataframe with ``['receptor', 'transcription_factor', 'ppr']`` columns
 
     """
-    print(resource_name)
-    resource_path = pathlib.Path(__file__).parent.joinpath("Personalized_PageRank_scores.csv")
+    resource_path = pathlib.Path(__file__).parent.joinpath(file)
     resource = read_csv(resource_path, index_col=False)
     
     if resource_name != 'consensus' and resource_name not in resource['database'].unique():

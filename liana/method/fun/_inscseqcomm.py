@@ -74,8 +74,6 @@ def compute_de(adata, groupby: str, method: str = "wilcoxon", **kwargs) -> dict:
             _adata_ref = adata[~adata.obs['@label'].isin([klabel])]
             
             # Filter the unreliable genes in both the cluster and the rest of the cells independently
-            #TODO CHIEDERE A GIULIA PERCHE' FILTRARE PER CLUSTER E PER IL RESTO DELLE CELLULE IN MODO
-            # INDIPENDENTE È GIUSTO? PERCHÈ NON FILTRARE TUTTE LE CELLE INSIEME?
             # cluster
             expressed_genes = _adata_k.raw.X.T > count_th
             present_genes = (np.sum(expressed_genes,axis=1)  / _adata_k.shape[0]) > ratio_th
